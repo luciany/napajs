@@ -1,6 +1,6 @@
 {
   "name": "napajs",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "author": "napajs",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "benchmark": "node benchmark/bench.js",
-    "install": "cmake-js compile",
+    "install": "node-pre-gyp install --fallback-to-build=false || cmake-js compile",
     "prepare": "tsc -p lib && tsc -p test && tsc -p benchmark",
     "pretest": "cmake-js compile -d test/module/addon",
     "test": "mocha test --recursive",
