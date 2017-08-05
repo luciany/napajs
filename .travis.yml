@@ -11,27 +11,27 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - g++-5
+    - g++-6
 
 matrix:
   include:
   - os: linux
-    compiler: g++-6
+    compiler: g++-5
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
         packages:
-        - g++-6
+        - g++-5
     env:
-    - COMPILER_OVERRIDE="CXX=g++-6 CC=gcc-6"
+    - COMPILER_OVERRIDE="CXX=g++-5 CC=gcc-5" SKIP_PUBLISH="true"
 
 before_install:
 - |
   if [ $TRAVIS_OS_NAME == linux ]; then
     if [ "$COMPILER_OVERRIDE" == "" ]; then
-      #use g++5 by default
-      export CXX="g++-5" CC="gcc-5"
+      #use g++6 on linux by default
+      export CXX="g++-6" CC="gcc-6"
     else
       export ${COMPILER_OVERRIDE}
     fi
@@ -44,7 +44,7 @@ script:
 - npm run unittest
 after_success:
 - |
-  if [ "$TRAVIS_BRANCH" == "pre-gyp-integration" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+  if [ "$TRAVIS_BRANCH" == "pre-gyp-integration" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$SKIP_PUBLISH" != "true" ]; then
     echo TRAVIS_BUILD_ID=$TRAVIS_BUILD_ID
     echo TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
     echo TRAVIS_JOB_ID=$TRAVIS_JOB_ID
@@ -56,4 +56,5 @@ after_success:
   fi
 env:
   global:
-    secure: S7DDixQ9tPK0hi7iGGNhipNUZtOa3qN4xwKpvUdB8XSBMP7N2LBjh/Bzjh/9zq7dyAVbUBrXHZkGICIYEDpGvjenIGUcr0mUQc6TDcf8Pk0OgY1jpF3I/eBdKX8e+WnfmOwD87SABQGdivlkZw6LXgT1Cw3fSxGZnkBHmjpKtJASZNi3AbS8agtiDPBwSxWiQQvIXdp35fIKh08KTeWbyZ9f9tlmVXZlbN78EXANR3Jc1UcL2JgCJoj7XxESpyUQpZP+rOrBPd9vhUORsK/et5ZTKJb66oeJcK4fq21hqMJxDIhpNnBgFC6KEmgOyDeqjLCp5a+520+QmE0+V0EAgVDXSaaLBgkV3DJShhuTX+ti4NgAc1MAxbDkXBF6WUAT3bOvr0BpuUhYW8j+wAs5bv1YnPYXja2umK+shVQ3epXtZ/Cdg3rhNymb3W6q36+z3pbB/ceRsOmLJollbF/18Iumo/iYHfxYiVXrF5OdVMexk/dLQ3s6FyjIqjxERjQhZqX34PTNmZBYk/NTyLut27fxEp21uhHqH6L7Un0IiDBTpsnpVhwRyOrzqFi/CJJC/Lbw76M1j47LPEymTz3E8rReDVBfj7Wfce8pB0D41moR/AbgtZUPeNH9XAduHz0ScMJNv+i0kH4SmqEvSbSVu3liknYlRumFn7MAEk2vfps=
+    # NODE_PRE_GYP_GITHUB_TOKEN={private token}. Should be replaced by public token once 'napajs' goes public.
+    secure: olqB3Fn38H8xGCJAe/sn86EgtbTQTN0siD+dfbGhkU72gxo1RFlQJvEzwx3CbWL6khMJ5dKJ8nDEnpu89/uBEgAx1gbDgcVt6B7KfRCeUpi42B3y3rYqMybkVCtWmTJ9ePWN5qnfjgS7ZhUQ54jnWIKUhgvqG0irVasA6F1LzHZjgMcTz4PL/ox24Z3gX1FDWdUATgmbnP+8OJxOUusawdjDDQ8bYDZhSI89DoqQsj72IivKPrxuxQJkYjFUKesvcNv8p8i9oe2UgzvxsaphH0XrCjV//Vu+xhuvtmTVX6dLuM3pRnQ4Cl+6LzEYj1swUW+mL21y7iayCzXOwc+2bC9YKVDGcn4+xxpfq25QkbSk18zmxnW0jqZ5jU9NBdO1fYeA2HboBNN/HGdIejoDsz7gFkNNNYWPe8cqp8nlR++8qYhgX3/R393R9D4L3vg7S7WlKQG8x41n3lXOFTs2mp0ZOqsnpDWqivatjZYI4Er+eCto+Vo8muogWiPSYl7c71Ebu5RRrq2KMdZ+vx6dY0X95orDOd27k7fikJDSgKKEjxC21Zl8zm5YpDDbOAOq6CkoL4J9+2uIr8CINRnaR/XWakBbpY/WTA88Qmf9b1VTsiC7m6dG7/o2PCktsS9Niv1nG2SGF/3QzCq5thTm/Agl7LTxD8Jr33E75ufmdwk=
