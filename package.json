@@ -1,6 +1,6 @@
 {
   "name": "napajs",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "author": "napajs",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
