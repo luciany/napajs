@@ -1,3 +1,8 @@
+[![Build Status for Linux/MacOS](https://travis-ci.org/Microsoft/napajs.svg?branch=master)](https://travis-ci.org/Microsoft/napajs)
+[![Build Status for Windows](https://ci.appveyor.com/api/projects/status/github/Microsoft/napajs?branch=master&svg=true)](https://ci.appveyor.com/project/daiyip/napajs)
+[![npm version](https://badge.fury.io/js/napajs.svg)](https://www.npmjs.com/package/napajs)
+[![Downloads](https://img.shields.io/npm/dm/napajs.svg)](https://www.npmjs.com/package/napajs)
+
 # Napa.js
 Napa.js is a multi-threaded JavaScript runtime built on [V8](https://github.com/v8/v8), which was originally designed to develop highly iterative services with non-compromised performance in Bing. As it evolves, we find it useful to complement [Node.js](https://nodejs.org) in CPU-bound tasks, with the capability of executing JavaScript in multiple V8 isolates and communicating between them. Napa.js is exposed as a Node.js module, while it can also be embedded in a host process without Node.js dependency.
 
@@ -13,7 +18,10 @@ Napa.js requires C++ compiler that supports [C++14](https://en.wikipedia.org/wik
     * Windows: Visual C++ Build Tools [2015](http://landinghub.visualstudio.com/visual-cpp-build-tools) / [2017](https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2017), or [Visual Studio](https://www.visualstudio.com/vs/cplusplus/)
     * Linux: [via Apt-get](https://askubuntu.com/questions/618474/how-to-install-the-latest-gcurrently-5-1-in-ubuntucurrently-14-04)
     * OSX: `xcode-select --install`
-* Install CMake: [Download or build](https://cmake.org/install/), [Apt-get (Linux/Ubuntu)](https://askubuntu.com/questions/355565/how-to-install-latest-cmake-version-in-linux-ubuntu-from-command-line)
+* Install CMake: 
+    * Linux: [via Apt-get](https://askubuntu.com/questions/355565/how-to-install-latest-cmake-version-in-linux-ubuntu-from-command-line)
+    * OSX: [via brew](http://macappstore.org/cmake/)
+    * [Download or build](https://cmake.org/install/)
 * Install cmake-js: `npm install -g cmake-js`
 
 ### Install Napa.js

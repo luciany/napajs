@@ -6,38 +6,19 @@ node_js:
 os:
 - linux
 - osx
+dist: trusty
+osx_image: xcode7.3
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - george-edison55-precise-backports
     packages:
     - g++-6
-    - cmake-data
-    - cmake
-
-matrix:
-  include:
-  - os: linux
-    compiler: g++-5
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        packages:
-        - g++-5
-    env:
-    - COMPILER_OVERRIDE="CXX=g++-5 CC=gcc-5" SKIP_PUBLISH="true"
 
 before_install:
 - |
   if [ $TRAVIS_OS_NAME == linux ]; then
-    if [ "$COMPILER_OVERRIDE" == "" ]; then
-      #use g++6 on linux by default
-      export CXX="g++-6" CC="gcc-6"
-    else
-      export ${COMPILER_OVERRIDE}
-    fi
+    export CXX=g++-6 CC=gcc-6
   fi
 install:
 - npm install cmake-js -g
@@ -47,17 +28,11 @@ script:
 - npm run unittest
 after_success:
 - |
-  if [ "$TRAVIS_BRANCH" == "pre-gyp-integration" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$SKIP_PUBLISH" != "true" ]; then
-    echo TRAVIS_BUILD_ID=$TRAVIS_BUILD_ID
-    echo TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
-    echo TRAVIS_JOB_ID=$TRAVIS_JOB_ID
-    echo TRAVIS_JOB_NUMBER=$TRAVIS_JOB_NUMBER
-    echo TRAVIS_REPO_SLUG=$TRAVIS_REPO_SLUG
-    echo TRAVIS_TAG=$TRAVIS_TAG
+  if [ "$TRAVIS_BRANCH" == "pre-gyp-integration" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     ./node_modules/.bin/node-pre-gyp package
     ./node_modules/.bin/node-pre-gyp-github publish
   fi
 env:
   global:
-    # NODE_PRE_GYP_GITHUB_TOKEN={private token}. Should be replaced by public token once 'napajs' goes public.
+    # NODE_PRE_GYP_GITHUB_TOKEN={encrypt}
     secure: olqB3Fn38H8xGCJAe/sn86EgtbTQTN0siD+dfbGhkU72gxo1RFlQJvEzwx3CbWL6khMJ5dKJ8nDEnpu89/uBEgAx1gbDgcVt6B7KfRCeUpi42B3y3rYqMybkVCtWmTJ9ePWN5qnfjgS7ZhUQ54jnWIKUhgvqG0irVasA6F1LzHZjgMcTz4PL/ox24Z3gX1FDWdUATgmbnP+8OJxOUusawdjDDQ8bYDZhSI89DoqQsj72IivKPrxuxQJkYjFUKesvcNv8p8i9oe2UgzvxsaphH0XrCjV//Vu+xhuvtmTVX6dLuM3pRnQ4Cl+6LzEYj1swUW+mL21y7iayCzXOwc+2bC9YKVDGcn4+xxpfq25QkbSk18zmxnW0jqZ5jU9NBdO1fYeA2HboBNN/HGdIejoDsz7gFkNNNYWPe8cqp8nlR++8qYhgX3/R393R9D4L3vg7S7WlKQG8x41n3lXOFTs2mp0ZOqsnpDWqivatjZYI4Er+eCto+Vo8muogWiPSYl7c71Ebu5RRrq2KMdZ+vx6dY0X95orDOd27k7fikJDSgKKEjxC21Zl8zm5YpDDbOAOq6CkoL4J9+2uIr8CINRnaR/XWakBbpY/WTA88Qmf9b1VTsiC7m6dG7/o2PCktsS9Niv1nG2SGF/3QzCq5thTm/Agl7LTxD8Jr33E75ufmdwk=
