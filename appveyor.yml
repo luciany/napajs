@@ -29,12 +29,12 @@ test_script:
 
 deploy_script:
 # Run deploy scripts only when new commit pushed in branch pre-gyp-integration 
-- cmd: >-
-    IF "%APPVEYOR_REPO_BRANCH%" == "pre-gyp-integration" (
-      IF "%APPVEYOR_PULL_REQUEST_NUMBER%" == "" (
-        IF "%APPVEYOR_REPO_TAG%" == "false" (
+- ps: >-
+    If ($env:APPVEYOR_REPO_BRANCH -eq "pre-gyp-integration") {
+      If ($env:APPVEYOR_PULL_REQUEST_NUMBER -eq "") {
+        If ($env:APPVEYOR_REPO_TAG -eq "false") {
           .\node_modules\.bin\node-pre-gyp package
           .\node_modules\.bin\node-pre-gyp-github publish
-        )
-      )
-    )
+        }
+      }
+    }
