@@ -2,6 +2,9 @@ image:
 - Visual Studio 2017
 
 environment:
+  NODE_PRE_GYP_GITHUB_TOKEN:
+    secure: E7tOEoLBk/oqyFjOWj0E6bKFEubCQDekejvK7YHgefObKnV2inw/eLI+zK88DdiV
+
   matrix:
     - nodejs_version: 4
     - nodejs_version: 5
@@ -23,3 +26,15 @@ build: off
 test_script:
 - npm test
 - npm run unittest
+
+deploy_script:
+# Run deploy scripts only when new commit pushed in branch pre-gyp-integration 
+- |
+  IF "%APPVEYOR_REPO_BRANCH%" == "pre-gyp-integration" (
+    IF "%APPVEYOR_PULL_REQUEST_NUMBER%" == "" (
+      IF "%APPVEYOR_REPO_TAG%" == "false" (
+        .\node_modules\.bin\node-pre-gyp package
+        .\node_modules\.bin\node-pre-gyp-github publish
+      )
+    )
+  )
