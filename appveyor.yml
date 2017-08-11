@@ -3,7 +3,7 @@ image:
 
 environment:
   NODE_PRE_GYP_GITHUB_TOKEN:
-    secure: E7tOEoLBk/oqyFjOWj0E6bKFEubCQDekejvK7YHgefObKnV2inw/eLI+zK88DdiV
+    secure: WmvadDXLTf7la1RJUFgzWf7Lr1hP1qYJ018jUUUMH4VJs/O3SoHQS3Nj7eNXVltG
 
   matrix:
     - nodejs_version: 4
