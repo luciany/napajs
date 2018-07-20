@@ -17,7 +17,7 @@
     "remote_path": "{version}"
   },
   "dependencies": {
-    "node-pre-gyp": "^0.6.36",
+    "node-pre-gyp": "^0.9.0",
     "npmlog": "^4.1.2"
   },
   "devDependencies": {
